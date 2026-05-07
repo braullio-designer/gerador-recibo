@@ -288,9 +288,39 @@ let opts = { veiculo: true };
 function get(id){ return document.getElementById(id)?.value?.trim() || ''; }
 
 function n(str){
-  // Mantém acentos do português nativamente
+  // Converte string para latin1 que o jsPDF/Helvetica suporta
   if(!str) return '';
-  return String(str);
+  try {
+    // Encode pra latin1 usando TextEncoder workaround
+    return unescape(encodeURIComponent(String(str)
+      .replace(/ç/g, '\xe7') // ç
+      .replace(/Ç/g, '\xc7') // Ç
+      .replace(/ã/g, '\xe3') // ã
+      .replace(/Ã/g, '\xc3') // Ã
+      .replace(/é/g, '\xe9') // é
+      .replace(/É/g, '\xc9') // É
+      .replace(/ê/g, '\xea') // ê
+      .replace(/Ê/g, '\xca') // Ê
+      .replace(/á/g, '\xe1') // á
+      .replace(/Á/g, '\xc1') // Á
+      .replace(/â/g, '\xe2') // â
+      .replace(/Â/g, '\xc2') // Â
+      .replace(/õ/g, '\xf5') // õ
+      .replace(/Õ/g, '\xd5') // Õ
+      .replace(/ó/g, '\xf3') // ó
+      .replace(/Ó/g, '\xd3') // Ó
+      .replace(/ú/g, '\xfa') // ú
+      .replace(/Ú/g, '\xda') // Ú
+      .replace(/í/g, '\xed') // í
+      .replace(/Í/g, '\xcd') // Í
+      .replace(/ô/g, '\xf4') // ô
+      .replace(/Ô/g, '\xd4') // Ô
+      .replace(/à/g, '\xe0') // à
+      .replace(/À/g, '\xc0') // À
+    ));
+  } catch(e) {
+    return String(str);
+  }
 }
 
 
@@ -546,7 +576,7 @@ async function desenharRecibo(doc, via){
 
   // Título
   doc.setFont('helvetica','bold'); doc.setFontSize(7);
-  doc.text('VÁLIDO COMO RECIBO/ORÇAMENTO', ml+cw/2, by, {align:'center'});
+  doc.text(n('VÁLIDO COMO RECIBO/ORÇAMENTO'), ml+cw/2, by, {align:'center'});
   by += 5;
 
   // Data + Fone
@@ -563,13 +593,13 @@ async function desenharRecibo(doc, via){
   by += 5;
 
   // Endereço cliente
-  doc.text('Endereço:', ml+2, by);
+  doc.text(n('Endereço:'), ml+2, by);
   doc.line(ml+10, by+0.5, ml+cw-2, by+0.5);
   by += 5;
 
   // Veículo + Placa (opcional)
   if(opts.veiculo){
-    doc.text('Veículo:', ml+2, by);
+    doc.text(n('Veículo:'), ml+2, by);
     doc.line(ml+14, by+0.5, ml+56, by+0.5);
     doc.text('Placa:', ml+58, by);
     doc.line(ml+66, by+0.5, ml+cw-2, by+0.5);
@@ -594,7 +624,7 @@ async function desenharRecibo(doc, via){
 
   doc.setFont('helvetica','bold'); doc.setFontSize(6);
   doc.text('Qtd',          ml+colQ/2,                 y+3.3, {align:'center'});
-  doc.text('Discriminação', ml+colQ+colD/2,             y+3.3, {align:'center'});
+  doc.text(n('Discriminação'), ml+colQ+colD/2,             y+3.3, {align:'center'});
   doc.text('V. Unit.',     ml+colQ+colD+colVU/2,        y+3.3, {align:'center'});
   doc.text('V. Total',     ml+colQ+colD+colVU+colVT/2,  y+3.3, {align:'center'});
   y += thH;
@@ -636,7 +666,7 @@ async function desenharRecibo(doc, via){
   // Agradecemos — duas linhas à direita, bem abaixo
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(5.5);
-  doc.text('AGRADECEMOS A SUA PREFERÊNCIA', ml + cw - 2, yRodape + 6, {align:'right'});
+  doc.text(n('AGRADECEMOS A SUA PREFERÊNCIA'), ml + cw - 2, yRodape + 6, {align:'right'});
 
   // Número da via (se mais de 1)
   if(vias > 1){
