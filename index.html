@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Gerador de Recibo</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap');
 
 :root {
   --bg: #0c0c0c;
@@ -390,12 +390,11 @@ function desenharRecibo(doc, via){
   doc.rect(ml, 2, cw, H-4);
 
   // ── CABEÇALHO — 2/3 info | 1/3 logo ──────────────────
-  // Calcula altura necessária antes de desenhar
   const cabTop = 3;
-  const infoW  = cw * (2/3);
-  const logoW  = cw * (1/3);
-  const cx     = ml + infoW/2;
-  const maxW   = infoW - 6;
+  const infoW  = cw * (2/3);   // ~63mm
+  const logoW  = cw * (1/3);   // ~31mm
+  const cx     = ml + infoW/2; // centro do bloco info
+  const maxW   = infoW - 4;    // largura máxima do texto
 
   const empNome = get('emp-nome');
   const empS    = get('emp-servico');
@@ -403,72 +402,110 @@ function desenharRecibo(doc, via){
   const ec      = get('emp-cnpj');
   const ee      = get('emp-end');
 
-  // Calcula altura dinamicamente
-  let cabH = 4; // padding top
-  cabH += 5;    // nome empresa
-  if(empS) cabH += 3.5;
-  if(ef || ec) cabH += 3.5;
-  if(ee)  cabH += 3.5;
-  cabH += 3;    // padding bottom
-  cabH = Math.max(cabH, 22); // mínimo 22mm
+  // Altura fixa por linha — cada info ocupa 1 linha garantida
+  const LH_NOME = 6;   // altura linha nome
+  const LH_SVC  = 4.5; // altura linha serviço (pode ter 2 linhas)
+  const LH_CONT = 3.5; // altura linha contato
+  const LH_END  = 3.5; // altura linha endereço
+  const PAD     = 3;   // padding top+bottom
 
-  // Linha fundo cab
+  let cabH = PAD + LH_NOME;
+  if(empS)    cabH += LH_SVC;
+  if(ef||ec)  cabH += LH_CONT;
+  if(ee)      cabH += LH_END;
+  cabH += PAD;
+  cabH = Math.max(cabH, 22);
+
+  // Linha fundo cabeçalho
   doc.setLineWidth(0.5);
   doc.line(ml, cabTop+cabH, ml+cw, cabTop+cabH);
 
-  // Divisória vertical info|logo
+  // Divisória vertical info | logo
   doc.setLineWidth(0.4);
   doc.line(ml+infoW, cabTop, ml+infoW, cabTop+cabH);
 
-  // Centralização vertical do bloco de texto
-  let totalTxtH = 5; // nome
-  if(empS) totalTxtH += 3.5;
-  if(ef||ec) totalTxtH += 3.5;
-  if(ee) totalTxtH += 3.5;
-  let iy = cabTop + (cabH - totalTxtH) / 2 + 3.5;
+  // Posição Y inicial — centralizado verticalmente
+  let totalH = LH_NOME;
+  if(empS)   totalH += LH_SVC;
+  if(ef||ec) totalH += LH_CONT;
+  if(ee)     totalH += LH_END;
+  let iy = cabTop + (cabH - totalH) / 2 + LH_NOME - 1;
 
-  // Nome empresa
-  doc.setFont('helvetica','bold'); doc.setFontSize(12);
+  // ── NOME — Helvetica Bold (Poppins não disponível no jsPDF padrão)
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(13);
   doc.text(n(empNome).toUpperCase(), cx, iy, {align:'center', maxWidth:maxW});
-  iy += 5;
+  iy += LH_NOME;
 
-  // Serviço — fonte menor, uma linha truncada
+  // ── SERVIÇO — até 100 chars, quebra em até 2 linhas se necessário
   if(empS){
-    doc.setFont('helvetica','bold'); doc.setFontSize(6);
-    // Truncar se muito longo
-    let svcTxt = n(empS).toUpperCase();
-    doc.text(svcTxt, cx, iy, {align:'center', maxWidth:maxW});
-    iy += 3.5;
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(6);
+    let svcStr = n(empS).toUpperCase();
+    // Divide em 2 linhas se necessário
+    const svcLines = doc.splitTextToSize(svcStr, maxW);
+    const linhasUsadas = Math.min(svcLines.length, 2);
+    doc.text(svcLines.slice(0,2), cx, iy, {align:'center'});
+    iy += LH_SVC * linhasUsadas;
   }
 
-  // Fone e CNPJ — cada um em posição separada
+  // ── FONE + CNPJ — WhatsApp icon + fone esquerda, cnpj direita
   if(ef || ec){
-    doc.setFont('helvetica','bold'); doc.setFontSize(6);
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(6);
     if(ef && ec){
-      // Dois itens: fone na esquerda, cnpj na direita
-      doc.text('Tel: '+n(ef), ml+2, iy);
+      // Bolinha preta
+      doc.setFillColor(0,0,0);
+      doc.circle(ml+3, iy-1.3, 1.6, 'F');
+      // Telefone branco dentro — quadrado branco simbolizando aparelho
+      doc.setFillColor(255,255,255);
+      // Corpo do fone (retangulo pequeno)
+      doc.roundedRect(ml+1.8, iy-2.4, 2.4, 2.2, 0.3, 0.3, 'F');
+      // Tela preta dentro
+      doc.setFillColor(0,0,0);
+      doc.rect(ml+2.1, iy-2.1, 1.8, 1.3, 'F');
+      doc.setFillColor(0,0,0);
+      doc.setTextColor(0,0,0);
+      doc.setFontSize(6);
+      doc.setFont('helvetica','bold');
+      doc.text(n(ef), ml+5.8, iy);
       doc.text('CNPJ/CPF: '+n(ec), ml+infoW-2, iy, {align:'right'});
     } else if(ef){
-      doc.text('Tel: '+n(ef), cx, iy, {align:'center'});
+      doc.setFillColor(0,0,0);
+      doc.circle(ml+3, iy-1.3, 1.6, 'F');
+      doc.setFillColor(255,255,255);
+      doc.roundedRect(ml+1.8, iy-2.4, 2.4, 2.2, 0.3, 0.3, 'F');
+      doc.setFillColor(0,0,0);
+      doc.rect(ml+2.1, iy-2.1, 1.8, 1.3, 'F');
+      doc.setFillColor(0,0,0);
+      doc.setTextColor(0,0,0);
+      doc.setFontSize(6);
+      doc.setFont('helvetica','bold');
+      doc.text(n(ef), ml+5.8, iy);
     } else {
       doc.text('CNPJ/CPF: '+n(ec), cx, iy, {align:'center'});
     }
-    iy += 3.5;
+    iy += LH_CONT;
   }
 
-  // Endereço
+  // ── ENDEREÇO — fonte menor, 1 linha
   if(ee){
-    doc.setFont('helvetica','normal'); doc.setFontSize(5.2);
-    doc.text(n(ee), cx, iy, {align:'center', maxWidth:maxW});
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(5);
+    let endStr = n(ee);
+    while(doc.getTextWidth(endStr) > maxW && endStr.length > 5){
+      endStr = endStr.slice(0, -4) + '...';
+    }
+    doc.text(endStr, cx, iy, {align:'center'});
   }
 
-  // Logo no bloco 1/3 — centralizada
+  // ── LOGO no bloco 1/3
   if(logoOpt==='upload' && logoSrc){
     try{
-      const lx = ml+infoW+2;
-      const ly = cabTop+2;
-      const lw = logoW-4;
-      const lh = cabH-4;
+      const lx = ml + infoW + 2;
+      const ly = cabTop + 2;
+      const lw = logoW - 4;
+      const lh = cabH - 4;
       doc.addImage(logoSrc, 'JPEG', lx, ly, lw, lh, '', 'FAST');
     } catch(e){}
   }
