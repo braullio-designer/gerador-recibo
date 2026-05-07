@@ -9,186 +9,143 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap');
 
 :root {
-  --bg: #0c0c0c;
-  --card: #141414;
-  --border: #2c2c2c;
-  --acc: #f0d060;
-  --acc-dim: rgba(240,208,96,0.1);
-  --text: #e8e8e8;
-  --muted: #555;
-  --red: #e05555;
-  --green: #55c888;
-  --r: 10px;
+  --bg:#0c0c0c; --card:#141414; --border:#2c2c2c;
+  --acc:#f0d060; --acc-dim:rgba(240,208,96,0.1);
+  --text:#e8e8e8; --muted:#555; --red:#e05555; --green:#55c888; --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:110px;}
+
+.header{position:sticky;top:0;z-index:100;background:rgba(12,12,12,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:10px;}
+.badge{background:var(--acc);color:#000;font-family:'DM Mono',monospace;font-size:8px;font-weight:700;letter-spacing:2px;padding:4px 8px;border-radius:4px;}
+.header-title{font-size:15px;font-weight:600;}
+.header-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+
+.wrap{padding:24px 20px;}
+.sec{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--acc);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.field input,.field select{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;padding:14px 16px;border-radius:var(--r);outline:none;transition:border-color .15s;-webkit-appearance:none;}
+.field input:focus,.field select:focus{border-color:var(--acc);}
+.field input::placeholder{color:var(--muted);font-size:14px;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23606060' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+.logo-box{border:1.5px dashed var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;background:var(--card);cursor:pointer;position:relative;display:block;touch-action:manipulation;}
+.logo-box-icon{font-size:28px;margin-bottom:8px;}
+.logo-box-txt{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+.logo-preview{max-height:80px;max-width:180px;object-fit:contain;filter:grayscale(1);display:none;margin:0 auto;}
+
+.tog{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;cursor:pointer;user-select:none;touch-action:manipulation;min-height:54px;transition:border-color .15s;}
+.tog.on{border-color:var(--acc);background:var(--acc-dim);}
+.tog-lbl{font-size:14px;font-weight:500;}
+.tog.on .tog-lbl{color:var(--acc);}
+.sw{width:42px;height:24px;background:var(--border);border-radius:12px;position:relative;transition:background .2s;flex-shrink:0;}
+.tog.on .sw{background:var(--acc);}
+.sw::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s;}
+.tog.on .sw::after{transform:translateX(18px);}
+.tog-content{display:none;padding:14px 0 2px;}
+.tog-content.show{display:block;}
+
+.qty-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.qty-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:12px;text-align:center;font-family:'DM Mono',monospace;font-size:13px;cursor:pointer;touch-action:manipulation;transition:all .15s;user-select:none;}
+.qty-btn.on{border-color:var(--acc);background:var(--acc-dim);color:var(--acc);}
+
+.bottom-cta{position:fixed;bottom:0;left:0;right:0;z-index:90;padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(12,12,12,.97);backdrop-filter:blur(16px);border-top:1px solid var(--border);}
+.btn-gerar{width:100%;background:var(--acc);color:#000;border:none;border-radius:var(--r);font-family:'DM Mono',monospace;font-weight:700;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;padding:18px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;user-select:none;}
+.btn-gerar:active{opacity:.8;}
+.btn-gerar:disabled{opacity:.35;}
+
+.toast{position:fixed;bottom:88px;left:20px;right:20px;z-index:80;padding:12px 18px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.toast.show{opacity:1;}
+.toast.ok{background:#0d2e1a;border:1px solid var(--green);color:var(--green);}
+.toast.err{background:#2e0d0d;border:1px solid var(--red);color:var(--red);}
+.toast.loading{background:#1a1a08;border:1px solid var(--acc);color:var(--acc);}
+
+/* ── RECIBO IMPRESSO ────────────────────── */
+#recibo-print{display:none;}
+
+@media print {
+  body > *:not(#recibo-print){display:none!important;}
+  #recibo-print{display:block!important;}
+  @page{size:100mm 150mm;margin:0;}
+  html,body{width:100mm;height:150mm;margin:0;padding:0;}
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  padding-bottom: 110px;
+.recibo{
+  width:100mm;height:150mm;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:8px;color:#000;background:#fff;
+  border:2px solid #000;
+  padding:4px 5px;
+  display:flex;flex-direction:column;
 }
 
-/* HEADER */
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(12,12,12,0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
-  display: flex; align-items: center; justify-content: space-between;
+/* CABEÇALHO */
+.rec-cab{
+  display:grid;grid-template-columns:2fr 1fr;
+  border-bottom:1.5px solid #000;
+  margin-bottom:3px;
 }
-.header-left { display: flex; align-items: center; gap: 10px; }
-.badge {
-  background: var(--acc); color: #000;
-  font-family: 'DM Mono', monospace;
-  font-size: 8px; font-weight: 700;
-  letter-spacing: 2px; padding: 4px 8px; border-radius: 4px;
+.rec-cab-info{
+  padding:4px 4px 4px 2px;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;gap:2px;
 }
-.header-title { font-size: 15px; font-weight: 600; }
-.header-sub { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+.rec-emp-nome{
+  font-family:'Poppins',Arial,sans-serif;
+  font-size:13px;font-weight:900;
+  text-transform:uppercase;letter-spacing:.3px;line-height:1.1;
+}
+.rec-emp-svc{font-size:6px;font-weight:bold;text-transform:uppercase;line-height:1.3;}
+.rec-emp-cont{
+  display:flex;justify-content:space-between;
+  font-size:6px;font-weight:bold;width:100%;padding:0 2px;
+  align-items:center;gap:4px;
+}
+.rec-fone-wrap{display:flex;align-items:center;gap:2px;}
+.rec-fone-icon{
+  width:10px;height:10px;background:#000;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.rec-fone-icon svg{width:6px;height:6px;fill:#fff;}
+.rec-emp-end{font-size:5.5px;text-align:center;}
+.rec-cab-logo{
+  border-left:1px solid #000;
+  display:flex;align-items:center;justify-content:center;
+  padding:4px;
+}
+.rec-cab-logo img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1);}
+.rec-logo-ph{width:100%;height:100%;border:1px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:6px;color:#ccc;}
 
-/* FORM */
-.form-wrap { padding: 24px 20px; }
+/* BLOCO 2 */
+.rec-b2{border:1px solid #000;padding:3px 5px;margin-bottom:3px;}
+.rec-b2-titulo{font-weight:bold;font-size:7.5px;text-transform:uppercase;margin-bottom:3px;text-align:center;}
+.rec-linha{display:flex;gap:4px;font-size:6.5px;margin-bottom:2px;align-items:flex-end;}
+.rec-lbl{font-weight:bold;white-space:nowrap;}
+.rec-ul{flex:1;border-bottom:.5px solid #000;min-height:9px;}
 
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--acc); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+/* TABELA */
+.rec-table{width:100%;border-collapse:collapse;flex:1;}
+.rec-table th{border:1px solid #000;padding:2px;font-size:6.5px;font-weight:bold;text-align:center;}
+.rec-table td{border:.4px solid #aaa;height:5mm;}
 
-.field { margin-bottom: 14px; }
-.field label {
-  display: block;
-  font-family: 'DM Mono', monospace;
-  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 6px;
-}
-.field input {
-  width: 100%;
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px; padding: 14px 16px;
-  border-radius: var(--r); outline: none;
-  transition: border-color .15s;
-  -webkit-appearance: none;
-}
-.field input:focus { border-color: var(--acc); }
-.field input::placeholder { color: var(--muted); font-size: 14px; }
+/* RODAPÉ */
+.rec-total{display:flex;align-items:center;justify-content:flex-end;border:1.5px solid #000;font-weight:bold;font-size:8px;margin-bottom:3px;}
+.rec-total-lbl{padding:3px 5px;white-space:nowrap;}
+.rec-total-val{border-left:1.5px solid #000;padding:3px 6px;min-width:24mm;}
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-/* LOGO UPLOAD */
-.logo-box {
-  border: 1.5px dashed var(--border);
-  border-radius: var(--r);
-  padding: 28px 20px;
-  text-align: center;
-  background: var(--card);
-  cursor: pointer;
-  transition: border-color .15s;
-  position: relative;
-  display: block;
-  touch-action: manipulation;
-}
-.logo-box:active { border-color: var(--acc); }
-.logo-box-icon { font-size: 30px; margin-bottom: 8px; }
-.logo-box-txt {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 1px;
-  color: var(--muted); text-transform: uppercase;
-}
-.logo-preview {
-  max-height: 80px; max-width: 180px;
-  object-fit: contain; filter: grayscale(1);
-  display: none; margin: 0 auto;
-}
-
-/* TOGGLE */
-.toggle-row {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 16px;
-  margin-bottom: 10px; cursor: pointer; user-select: none;
-  touch-action: manipulation; min-height: 54px;
-  transition: border-color .15s;
-}
-.toggle-row.active { border-color: var(--acc); background: var(--acc-dim); }
-.toggle-label { font-size: 14px; font-weight: 500; }
-.toggle-row.active .toggle-label { color: var(--acc); }
-.toggle-sw {
-  width: 42px; height: 24px;
-  background: var(--border); border-radius: 12px;
-  position: relative; transition: background .2s; flex-shrink: 0;
-}
-.toggle-row.active .toggle-sw { background: var(--acc); }
-.toggle-sw::after {
-  content: ''; position: absolute;
-  width: 18px; height: 18px; background: #fff;
-  border-radius: 50%; top: 3px; left: 3px;
-  transition: transform .2s;
-}
-.toggle-row.active .toggle-sw::after { transform: translateX(18px); }
-
-/* QUANTIDADE */
-.qty-selector {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-  margin-bottom: 14px;
-}
-.qty-btn {
-  background: var(--card); border: 1px solid var(--border);
-  color: var(--text); border-radius: var(--r);
-  padding: 12px; text-align: center;
-  font-family: 'DM Mono', monospace; font-size: 13px;
-  cursor: pointer; touch-action: manipulation;
-  transition: all .15s; user-select: none;
-}
-.qty-btn.active { border-color: var(--acc); background: var(--acc-dim); color: var(--acc); }
-
-/* BOTTOM */
-.bottom-cta {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-  padding: 12px 20px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
-  background: rgba(12,12,12,0.97);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-}
-.btn-gerar {
-  width: 100%; background: var(--acc); color: #000;
-  border: none; border-radius: var(--r);
-  font-family: 'DM Mono', monospace; font-weight: 700;
-  font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
-  padding: 18px; cursor: pointer;
-  touch-action: manipulation; -webkit-appearance: none;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 56px; user-select: none;
-  transition: opacity .15s;
-}
-.btn-gerar:active { opacity: .8; }
-.btn-gerar:disabled { opacity: .35; }
-
-/* STATUS */
-.status-toast {
-  position: fixed; bottom: 88px; left: 20px; right: 20px; z-index: 80;
-  padding: 12px 18px; border-radius: var(--r);
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px;
-  text-align: center; opacity: 0; pointer-events: none;
-  transition: opacity .3s;
-}
-.status-toast.show { opacity: 1; }
-.status-toast.ok  { background:#0d2e1a; border:1px solid var(--green); color:var(--green); }
-.status-toast.err { background:#2e0d0d; border:1px solid var(--red);   color:var(--red); }
-.status-toast.loading { background:#1a1a08; border:1px solid var(--acc); color:var(--acc); }
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.rec-rodape{display:flex;justify-content:space-between;align-items:flex-end;margin-top:3px;}
+.rec-ass{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+.rec-ass-linha{width:28mm;border-top:.5px solid #000;}
+.rec-ass-txt{font-size:5.5px;}
+.rec-agradece{font-size:5.5px;font-weight:bold;text-align:right;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -198,41 +155,28 @@ body {
     <div class="badge">PRO</div>
     <div class="header-title">Gerador de Recibo</div>
   </div>
-  <div class="header-sub">v3.1</div>
+  <div class="header-sub">v4.0</div>
 </div>
 
-<div class="form-wrap">
+<div class="wrap">
 
-  <div class="section-label">Dados da empresa</div>
+  <div class="sec">Dados da empresa</div>
 
   <div class="field">
     <label>Nome da empresa *</label>
-    <input type="text" id="emp-nome" placeholder="Ex: Chaveiro Rey">
+    <input type="text" id="emp-nome" placeholder="Ex: Braullio Designer">
   </div>
-
   <div class="field">
-    <label>Serviços / Slogan</label>
-    <input type="text" id="emp-servico" placeholder="Ex: Serviços Automotivo">
+    <label>Serviços (até 120 caracteres)</label>
+    <input type="text" id="emp-svc" placeholder="Ex: Cartão de visita, placas, adesivos...">
   </div>
-
-  <div class="grid-2">
-    <div class="field">
-      <label>WhatsApp</label>
-      <input type="tel" id="emp-fone" placeholder="(82) 99999-0000">
-    </div>
-    <div class="field">
-      <label>CNPJ / CPF</label>
-      <input type="text" id="emp-cnpj" placeholder="00.000.000/0001-00">
-    </div>
+  <div class="g2">
+    <div class="field"><label>WhatsApp</label><input type="tel" id="emp-fone" placeholder="(82) 99999-0000"></div>
+    <div class="field"><label>CNPJ / CPF</label><input type="text" id="emp-cnpj" placeholder="00.000.000/0001-00"></div>
   </div>
+  <div class="field"><label>Endereço</label><input type="text" id="emp-end" placeholder="Rua, Nº, Bairro, Cidade"></div>
 
-  <div class="field">
-    <label>Endereço</label>
-    <input type="text" id="emp-end" placeholder="Rua, Nº, Bairro, Cidade">
-  </div>
-
-  <div class="section-label" style="margin-top:8px">Logo da empresa</div>
-
+  <div class="sec" style="margin-top:8px">Logo</div>
   <label class="logo-box" for="logo-file">
     <input type="file" id="logo-file" accept="image/*" onchange="loadLogo(event)"
       style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
@@ -240,439 +184,210 @@ body {
     <div class="logo-box-txt" id="logo-txt">Toque para adicionar logo</div>
     <img id="logo-preview" class="logo-preview">
   </label>
-
   <div style="margin-top:10px">
-    <div class="toggle-row" id="tog-sem" onclick="setLogo('nenhuma')">
-      <span class="toggle-label">Sem logo</span>
-      <div class="toggle-sw"></div>
-    </div>
-    <div class="toggle-row active" id="tog-com" onclick="setLogo('upload')">
-      <span class="toggle-label">Com logo</span>
-      <div class="toggle-sw"></div>
-    </div>
+    <div class="tog" id="tog-sem" onclick="setLogo('none')"><span class="tog-lbl">Sem logo</span><div class="sw"></div></div>
+    <div class="tog on" id="tog-com" onclick="setLogo('img')"><span class="tog-lbl">Com logo</span><div class="sw"></div></div>
   </div>
 
-  <div class="section-label" style="margin-top:24px">Quantidade de vias</div>
-
-  <div class="qty-selector">
-    <div class="qty-btn active" onclick="setVias(1,this)">1 via</div>
+  <div class="sec" style="margin-top:24px">Quantidade de vias</div>
+  <div class="qty-sel">
+    <div class="qty-btn on" onclick="setVias(1,this)">1 via</div>
     <div class="qty-btn" onclick="setVias(2,this)">2 vias</div>
     <div class="qty-btn" onclick="setVias(3,this)">3 vias</div>
   </div>
 
-  <div class="section-label" style="margin-top:8px">Opções do template</div>
-
-  <div class="toggle-row active" id="tog-veiculo" onclick="toggleOpt('veiculo')">
-    <span class="toggle-label">Incluir campos Veículo / Placa</span>
-    <div class="toggle-sw"></div>
+  <div class="sec" style="margin-top:8px">Opções</div>
+  <div class="tog on" id="tog-veiculo" onclick="togOpt('veiculo')">
+    <span class="tog-lbl">Incluir Veículo / Placa</span><div class="sw"></div>
+  </div>
+  <div class="tog on" id="tog-endereco" onclick="togOpt('endereco')">
+    <span class="tog-lbl">Incluir campo Endereço cliente</span><div class="sw"></div>
   </div>
 
 </div>
 
 <div class="bottom-cta">
-  <button class="btn-gerar" id="btn-gerar" onclick="gerarPDF()">
-    ↓ Gerar Recibo em PDF
-  </button>
+  <button class="btn-gerar" id="btn-gerar" onclick="gerarPDF()">↓ Gerar Recibo em PDF</button>
 </div>
+<div class="toast" id="toast"></div>
 
-<div class="status-toast" id="toast"></div>
+<!-- RECIBO HTML (usado para print) -->
+<div id="recibo-print"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+let logoSrc=null, logoGray=null, logoOpt='img', vias=1;
+let opts={veiculo:true, endereco:true};
 
-let logoSrc = null;
-let logoOpt = 'upload';
-let vias = 1;
-let opts = { veiculo: true };
+function get(id){return document.getElementById(id)?.value?.trim()||'';}
 
-function get(id){ return document.getElementById(id)?.value?.trim() || ''; }
-
-function n(str){
-  // Converte string para latin1 que o jsPDF/Helvetica suporta
-  if(!str) return '';
-  try {
-    // Encode pra latin1 usando TextEncoder workaround
-    return unescape(encodeURIComponent(String(str)
-      .replace(/ç/g, '\xe7') // ç
-      .replace(/Ç/g, '\xc7') // Ç
-      .replace(/ã/g, '\xe3') // ã
-      .replace(/Ã/g, '\xc3') // Ã
-      .replace(/é/g, '\xe9') // é
-      .replace(/É/g, '\xc9') // É
-      .replace(/ê/g, '\xea') // ê
-      .replace(/Ê/g, '\xca') // Ê
-      .replace(/á/g, '\xe1') // á
-      .replace(/Á/g, '\xc1') // Á
-      .replace(/â/g, '\xe2') // â
-      .replace(/Â/g, '\xc2') // Â
-      .replace(/õ/g, '\xf5') // õ
-      .replace(/Õ/g, '\xd5') // Õ
-      .replace(/ó/g, '\xf3') // ó
-      .replace(/Ó/g, '\xd3') // Ó
-      .replace(/ú/g, '\xfa') // ú
-      .replace(/Ú/g, '\xda') // Ú
-      .replace(/í/g, '\xed') // í
-      .replace(/Í/g, '\xcd') // Í
-      .replace(/ô/g, '\xf4') // ô
-      .replace(/Ô/g, '\xd4') // Ô
-      .replace(/à/g, '\xe0') // à
-      .replace(/À/g, '\xc0') // À
-    ));
-  } catch(e) {
-    return String(str);
-  }
-}
-
-
-function toast(msg, type){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'status-toast show ' + type;
-  if(type !== 'loading') setTimeout(()=>el.classList.remove('show'), 3000);
+function toast(msg,type){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+type;
+  if(type!=='loading') setTimeout(()=>el.classList.remove('show'),3000);
 }
 
 function loadLogo(e){
-  const file = e.target.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    logoSrc = ev.target.result;
-    const img = document.getElementById('logo-preview');
-    img.src = logoSrc; img.style.display = 'block';
-    document.getElementById('logo-icon').style.display = 'none';
-    document.getElementById('logo-txt').style.display = 'none';
-    setLogo('upload');
+  const file=e.target.files[0]; if(!file) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    logoSrc=ev.target.result;
+    // Converte pra grayscale
+    const img=new Image();
+    img.onload=()=>{
+      const cv=document.createElement('canvas');
+      cv.width=img.width; cv.height=img.height;
+      const ctx=cv.getContext('2d');
+      ctx.drawImage(img,0,0);
+      const d=ctx.getImageData(0,0,cv.width,cv.height);
+      for(let i=0;i<d.data.length;i+=4){
+        const g=0.299*d.data[i]+0.587*d.data[i+1]+0.114*d.data[i+2];
+        d.data[i]=d.data[i+1]=d.data[i+2]=g;
+      }
+      ctx.putImageData(d,0,0);
+      logoGray=cv.toDataURL('image/jpeg',0.92);
+      const thumb=document.getElementById('logo-preview');
+      thumb.src=logoGray; thumb.style.display='block';
+      document.getElementById('logo-icon').style.display='none';
+      document.getElementById('logo-txt').style.display='none';
+      setLogo('img');
+    };
+    img.src=logoSrc;
   };
   r.readAsDataURL(file);
 }
 
 function setLogo(opt){
-  logoOpt = opt;
-  document.getElementById('tog-sem').classList.toggle('active', opt==='nenhuma');
-  document.getElementById('tog-com').classList.toggle('active', opt==='upload');
+  logoOpt=opt;
+  document.getElementById('tog-sem').classList.toggle('on',opt==='none');
+  document.getElementById('tog-com').classList.toggle('on',opt==='img');
 }
 
-function setVias(n, el){
-  vias = n;
-  document.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
+function setVias(n,el){
+  vias=n;
+  document.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
 }
 
-function toggleOpt(key){
-  opts[key] = !opts[key];
-  document.getElementById('tog-'+key).classList.toggle('active', opts[key]);
+function togOpt(key){
+  opts[key]=!opts[key];
+  document.getElementById('tog-'+key).classList.toggle('on',opts[key]);
 }
 
 // Touch support
-document.getElementById('tog-sem').addEventListener('touchend', e=>{e.preventDefault();setLogo('nenhuma');},{passive:false});
-document.getElementById('tog-com').addEventListener('touchend', e=>{e.preventDefault();setLogo('upload');},{passive:false});
-document.getElementById('tog-veiculo').addEventListener('touchend', e=>{e.preventDefault();toggleOpt('veiculo');},{passive:false});
-document.getElementById('btn-gerar').addEventListener('touchend', e=>{e.preventDefault();gerarPDF();},{passive:false});
+['tog-sem','tog-com','tog-veiculo','tog-endereco'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('touchend',e=>{e.preventDefault();el.click();},{passive:false});
+});
+document.getElementById('btn-gerar').addEventListener('touchend',e=>{e.preventDefault();gerarPDF();},{passive:false});
 document.querySelectorAll('.qty-btn').forEach((btn,i)=>{
-  btn.addEventListener('touchend', e=>{
-    e.preventDefault();
-    setVias(i+1, btn);
-  },{passive:false});
+  btn.addEventListener('touchend',e=>{e.preventDefault();setVias(i+1,btn);},{passive:false});
 });
 
-// ── GERAR PDF ────────────────────────────────────────────────
-async function gerarPDF(){
+function buildRecibo(via){
   const empNome = get('emp-nome');
-  if(!empNome){ toast('Preencha o nome da empresa', 'err'); return; }
+  const empSvc  = get('emp-svc');
+  const empFone = get('emp-fone');
+  const empCnpj = get('emp-cnpj');
+  const empEnd  = get('emp-end');
 
-  const btn = document.getElementById('btn-gerar');
-  btn.disabled = true;
-  toast('Gerando PDF...', 'loading');
+  const logoHTML = (logoOpt==='img' && logoGray)
+    ? `<img src="${logoGray}" alt="logo">`
+    : `<div class="rec-logo-ph">LOGO</div>`;
 
-  try{
-    const {jsPDF} = window.jspdf;
+  // Bloco 2 linhas
+  let b2linhas = `
+    <div class="rec-linha">
+      <span class="rec-lbl">Data:</span><span class="rec-ul"></span>
+      <span class="rec-lbl" style="margin-left:3px">Fone:</span><span class="rec-ul"></span>
+    </div>
+    <div class="rec-linha">
+      <span class="rec-lbl">Cliente:</span><span class="rec-ul"></span>
+    </div>`;
 
-    // Uma página por via
-    const doc = new jsPDF({unit:'mm', format:[100,150], orientation:'portrait'});
-  // Suporte a caracteres latinos (ç, ã, é, etc.)
-  doc.setLanguage('pt-BR');
-
-    for(let via=0; via < vias; via++){
-      if(via > 0) doc.addPage([100,150]);
-      await desenharRecibo(doc, via+1);
-    }
-
-    const nome = 'recibo_' + n(empNome).toLowerCase().replace(/\s+/g,'_') + '.pdf';
-    doc.save(nome);
-    toast('PDF baixado!', 'ok');
-
-  } catch(err){
-    toast('Erro: ' + err.message, 'err');
-    console.error(err);
+  if(opts.endereco){
+    b2linhas += `<div class="rec-linha"><span class="rec-lbl">Endereço:</span><span class="rec-ul"></span></div>`;
   }
 
-  btn.disabled = false;
+  if(opts.veiculo){
+    b2linhas += `
+    <div class="rec-linha">
+      <span class="rec-lbl">Veículo:</span><span class="rec-ul"></span>
+      <span class="rec-lbl" style="margin-left:3px">Placa:</span><span class="rec-ul" style="max-width:18mm"></span>
+    </div>`;
+  }
+
+  // Tabela 15 linhas
+  let rows = '<tr><th style="width:8mm">Qtd</th><th>Discriminação</th><th style="width:16mm">V. Unit.</th><th style="width:16mm">V. Total</th></tr>';
+  for(let i=0;i<15;i++) rows += '<tr><td></td><td></td><td></td><td></td></tr>';
+
+  const viaTag = vias>1 ? `<div style="text-align:center;font-size:5px;margin-top:2px">Via ${via}/${vias}</div>` : '';
+
+  return `
+  <div class="recibo">
+    <div class="rec-cab">
+      <div class="rec-cab-info">
+        <div class="rec-emp-nome">${empNome||'EMPRESA'}</div>
+        ${empSvc?`<div class="rec-emp-svc">${empSvc}</div>`:''}
+        <div class="rec-emp-cont">
+          <div class="rec-fone-wrap">
+            <div class="rec-fone-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+              </svg>
+            </div>
+            <span>${empFone||''}</span>
+          </div>
+          ${empCnpj?`<span>CNPJ/CPF: ${empCnpj}</span>`:''}
+        </div>
+        ${empEnd?`<div class="rec-emp-end">${empEnd}</div>`:''}
+      </div>
+      <div class="rec-cab-logo">${logoHTML}</div>
+    </div>
+
+    <div class="rec-b2">
+      <div class="rec-b2-titulo">VÁLIDO COMO RECIBO/ORÇAMENTO</div>
+      ${b2linhas}
+    </div>
+
+    <table class="rec-table"><thead>${rows.split('</tr>')[0]}</tr></thead><tbody>${rows.split('</tr>').slice(1).join('</tr>')}</tbody></table>
+
+    <div class="rec-total">
+      <span class="rec-total-lbl">TOTAL R$</span>
+      <span class="rec-total-val"></span>
+    </div>
+
+    <div class="rec-rodape">
+      <div class="rec-ass">
+        <div class="rec-ass-linha"></div>
+        <span class="rec-ass-txt">ASSINATURA</span>
+      </div>
+      <div class="rec-agradece">AGRADECEMOS A SUA PREFERÊNCIA</div>
+    </div>
+    ${viaTag}
+  </div>`;
 }
 
-async function desenharRecibo(doc, via){
-  const W=100, H=150, ml=3, cw=94;
+function gerarPDF(){
+  const empNome=get('emp-nome');
+  if(!empNome){toast('Preencha o nome da empresa','err');return;}
 
-  // Borda externa
-  doc.setLineWidth(0.5);
-  doc.rect(ml, 2, cw, H-4);
+  const btn=document.getElementById('btn-gerar');
+  btn.disabled=true;
+  toast('Abrindo impressão...','loading');
 
-  // ── CABEÇALHO — 2/3 info | 1/3 logo ──────────────────
-  const cabTop = 3;
-  const infoW  = cw * (2/3);   // ~63mm
-  const logoW  = cw * (1/3);   // ~31mm
-  const cx     = ml + infoW/2; // centro do bloco info
-  const maxW   = infoW - 4;    // largura máxima do texto
+  // Monta recibos
+  let html='';
+  for(let i=1;i<=vias;i++) html+=buildRecibo(i);
 
-  const empNome = get('emp-nome');
-  const empS    = get('emp-servico');
-  const ef      = get('emp-fone');
-  const ec      = get('emp-cnpj');
-  const ee      = get('emp-end');
+  const printEl=document.getElementById('recibo-print');
+  printEl.innerHTML=html;
 
-  // Altura fixa por linha — cada info ocupa 1 linha garantida
-  const LH_NOME = 7;   // altura linha nome
-  const LH_SVC  = 5;   // altura de cada linha de serviço (~20px)
-  const LH_CONT = 5;   // altura linha contato
-  const LH_END  = 4;   // altura linha endereço
-  const PAD     = 3;   // padding top+bottom
-
-  // Estima linhas do serviço (aprox 45 chars por linha a 6pt)
-  const CHARS_POR_LINHA = 45;
-  let svcLineCount = 0;
-  if(empS){
-    svcLineCount = Math.min(Math.ceil(n(empS).length / CHARS_POR_LINHA), 2);
-    svcLineCount = Math.max(svcLineCount, 1);
-  }
-
-  let cabH = PAD + LH_NOME;
-  if(empS)    cabH += LH_SVC * Math.max(svcLineCount, 1);
-  if(ef||ec)  cabH += LH_CONT;
-  if(ee)      cabH += LH_END;
-  cabH += PAD;
-  cabH = Math.max(cabH, 26);
-  cabH += 2; // margem extra para não vazar da borda
-
-  // Linha fundo cabeçalho
-  doc.setLineWidth(0.5);
-  doc.line(ml, cabTop+cabH, ml+cw, cabTop+cabH);
-
-  // Divisória vertical info | logo
-  doc.setLineWidth(0.4);
-  doc.line(ml+infoW, cabTop, ml+infoW, cabTop+cabH);
-
-  // Posição Y inicial — centralizado verticalmente
-  let totalH = LH_NOME;
-  if(empS)   totalH += LH_SVC * Math.max(svcLineCount, 1);
-  if(ef||ec) totalH += LH_CONT;
-  if(ee)     totalH += LH_END;
-  let iy = cabTop + (cabH - totalH) / 2 + LH_NOME - 1;
-
-  // ── NOME — Helvetica Bold (Poppins não disponível no jsPDF padrão)
-  doc.setFont('helvetica','bold');
-  doc.setFontSize(14);
-  doc.text(n(empNome).toUpperCase(), cx, iy, {align:'center', maxWidth:maxW});
-  iy += LH_NOME;
-
-  // ── SERVIÇO — até 2 linhas, espaço garantido
-  if(empS){
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(6);
-    const svcStr = n(empS).toUpperCase();
-    const svcLines = doc.splitTextToSize(svcStr, maxW);
-    const linhasUsadas = Math.min(svcLines.length, 2);
-    // Renderiza cada linha separadamente para controle preciso
-    for(let li=0; li<linhasUsadas; li++){
-      doc.text(svcLines[li], cx, iy + (li * LH_SVC), {align:'center'});
-    }
-    iy += LH_SVC * linhasUsadas;
-  }
-
-  // ── FONE + CNPJ — WhatsApp icon + fone esquerda, cnpj direita
-  if(ef || ec){
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(6);
-    if(ef && ec){
-      // Bolinha preta
-      doc.setFillColor(0,0,0);
-      doc.circle(ml+3, iy-1.3, 1.6, 'F');
-      // Telefone branco dentro — quadrado branco simbolizando aparelho
-      doc.setFillColor(255,255,255);
-      // Corpo do fone (retangulo pequeno)
-      doc.roundedRect(ml+1.8, iy-2.4, 2.4, 2.2, 0.3, 0.3, 'F');
-      // Tela preta dentro
-      doc.setFillColor(0,0,0);
-      doc.rect(ml+2.1, iy-2.1, 1.8, 1.3, 'F');
-      doc.setFillColor(0,0,0);
-      doc.setTextColor(0,0,0);
-      doc.setFontSize(6);
-      doc.setFont('helvetica','bold');
-      doc.text(n(ef), ml+5.8, iy);
-      doc.text('CNPJ/CPF: '+n(ec), ml+infoW-2, iy, {align:'right'});
-    } else if(ef){
-      doc.setFillColor(0,0,0);
-      doc.circle(ml+3, iy-1.3, 1.6, 'F');
-      doc.setFillColor(255,255,255);
-      doc.roundedRect(ml+1.8, iy-2.4, 2.4, 2.2, 0.3, 0.3, 'F');
-      doc.setFillColor(0,0,0);
-      doc.rect(ml+2.1, iy-2.1, 1.8, 1.3, 'F');
-      doc.setFillColor(0,0,0);
-      doc.setTextColor(0,0,0);
-      doc.setFontSize(6);
-      doc.setFont('helvetica','bold');
-      doc.text(n(ef), ml+5.8, iy);
-    } else {
-      doc.text('CNPJ/CPF: '+n(ec), cx, iy, {align:'center'});
-    }
-    iy += LH_CONT;
-  }
-
-  // ── ENDEREÇO — fonte menor, 1 linha
-  if(ee){
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(5);
-    let endStr = n(ee);
-    while(doc.getTextWidth(endStr) > maxW && endStr.length > 5){
-      endStr = endStr.slice(0, -4) + '...';
-    }
-    doc.text(endStr, cx, iy, {align:'center'});
-  }
-
-  // ── LOGO no bloco 1/3 — sempre preto e branco
-  if(logoOpt==='upload' && logoSrc){
-    try{
-      // Converte logo pra grayscale via canvas
-      const cvs = document.createElement('canvas');
-      const img = new Image();
-      await new Promise(res => { img.onload = res; img.src = logoSrc; });
-      cvs.width = img.width; cvs.height = img.height;
-      const ctx = cvs.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const imgData = ctx.getImageData(0, 0, cvs.width, cvs.height);
-      const data = imgData.data;
-      for(let i=0; i<data.length; i+=4){
-        const gray = 0.299*data[i] + 0.587*data[i+1] + 0.114*data[i+2];
-        data[i] = data[i+1] = data[i+2] = gray;
-      }
-      ctx.putImageData(imgData, 0, 0);
-      const grayDataUrl = cvs.toDataURL('image/jpeg', 0.95);
-      const lx = ml + infoW + 2;
-      const ly = cabTop + 2;
-      const lw = logoW - 4;
-      const lh = cabH - 4;
-      doc.addImage(grayDataUrl, 'JPEG', lx, ly, lw, lh, '', 'FAST');
-    } catch(e){ console.error('logo err', e); }
-  }
-
-  let y = cabTop + cabH + 3;
-
-  // ── BLOCO 2 — VALIDO COMO RECIBO ──────────────────────
-  // Linhas extras se tiver veículo
-  const linhasBloco2 = opts.veiculo ? 5 : 4;
-  const b2h = linhasBloco2 * 5 + 2;
-
-  doc.setLineWidth(0.4);
-  doc.rect(ml, y, cw, b2h);
-
-  let by = y + 4;
-
-  // Título
-  doc.setFont('helvetica','bold'); doc.setFontSize(7);
-  doc.text(n('VÁLIDO COMO RECIBO/ORÇAMENTO'), ml+cw/2, by, {align:'center'});
-  by += 5;
-
-  // Data + Fone
-  doc.setFontSize(6.5);
-  doc.text('Data:', ml+2, by);
-  doc.line(ml+9, by+0.5, ml+36, by+0.5);
-  doc.text('Fone:', ml+38, by);
-  doc.line(ml+45, by+0.5, ml+cw-2, by+0.5);
-  by += 5;
-
-  // Cliente
-  doc.text('Cliente:', ml+2, by);
-  doc.line(ml+14, by+0.5, ml+cw-2, by+0.5);
-  by += 5;
-
-  // Endereço cliente
-  doc.text(n('Endereço:'), ml+2, by);
-  doc.line(ml+10, by+0.5, ml+cw-2, by+0.5);
-  by += 5;
-
-  // Veículo + Placa (opcional)
-  if(opts.veiculo){
-    doc.text(n('Veículo:'), ml+2, by);
-    doc.line(ml+14, by+0.5, ml+56, by+0.5);
-    doc.text('Placa:', ml+58, by);
-    doc.line(ml+66, by+0.5, ml+cw-2, by+0.5);
-    by += 5;
-  }
-
-  y = y + b2h + 2;
-
-  // ── TABELA — 20 linhas, 4 colunas ─────────────────────
-  const colQ=10, colVU=20, colVT=18, colD=cw-colQ-colVU-colVT;
-  // Calcula espaço restante pra tabela
-  const thH=4.5;
-  const espacoRestante = (H-4) - (y - 2) - 6 - 12; // H - bordas - y atual - total - rodape
-  const tdH = Math.max(Math.min(espacoRestante / 20, 4.2), 3.2);
-
-  // Header da tabela
-  doc.setLineWidth(0.4);
-  doc.rect(ml, y, cw, thH);
-  [colQ, colQ+colD, colQ+colD+colVU].forEach(x=>
-    doc.line(ml+x, y, ml+x, y+thH)
-  );
-
-  doc.setFont('helvetica','bold'); doc.setFontSize(6);
-  doc.text('Qtd',          ml+colQ/2,                 y+3.3, {align:'center'});
-  doc.text(n('Discriminação'), ml+colQ+colD/2,             y+3.3, {align:'center'});
-  doc.text('V. Unit.',     ml+colQ+colD+colVU/2,        y+3.3, {align:'center'});
-  doc.text('V. Total',     ml+colQ+colD+colVU+colVT/2,  y+3.3, {align:'center'});
-  y += thH;
-
-  // 20 linhas em branco
-  doc.setFont('helvetica','normal'); doc.setFontSize(6); doc.setLineWidth(0.15);
-  for(let i=0; i<20; i++){
-    doc.line(ml, y+tdH, ml+cw, y+tdH);
-    [0, colQ, colQ+colD, colQ+colD+colVU, cw].forEach(x=>
-      doc.line(ml+x, y, ml+x, y+tdH)
-    );
-    y += tdH;
-  }
-
-  // ── TOTAL ──────────────────────────────────────────────
-  const totH = 6;
-  doc.setLineWidth(0.4);
-  doc.rect(ml, y, cw, totH);
-  doc.line(ml+colQ+colD+colVU, y, ml+colQ+colD+colVU, y+totH);
-  doc.setFont('helvetica','bold'); doc.setFontSize(7);
-  doc.text('TOTAL R$', ml+colQ+colD+colVU-2, y+4, {align:'right'});
-  y += totH + 2;
-
-  // ── RODAPÉ ─────────────────────────────────────────────
-  const yRodape = Math.min(y + 2, (H - 4) - 13);
-
-  // Linha de assinatura — centralizada na metade esquerda da página
-  const assX1 = ml + 4;
-  const assX2 = ml + (cw / 2) - 4;
-  const assXc = (assX1 + assX2) / 2;
-
-  doc.setLineWidth(0.3);
-  doc.line(assX1, yRodape + 2, assX2, yRodape + 2);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(5.5);
-  doc.text('ASSINATURA', assXc, yRodape + 6, {align:'center'});
-
-  // Agradecemos — duas linhas à direita, bem abaixo
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(5.5);
-  doc.text(n('AGRADECEMOS A SUA PREFERÊNCIA'), ml + cw - 2, yRodape + 6, {align:'right'});
-
-  // Número da via (se mais de 1)
-  if(vias > 1){
-    doc.setFontSize(5); doc.setFont('helvetica','normal');
-    doc.text('Via '+via+'/'+vias, ml+cw/2, yRodape+10, {align:'center'});
-  }
+  // Print após render
+  setTimeout(()=>{
+    window.print();
+    toast('Use "Salvar como PDF" na impressão','ok');
+    btn.disabled=false;
+  },400);
 }
 </script>
 </body>
