@@ -8,7 +8,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap');
 
-/* ── APP UI ─────────────────────────────── */
+/* ── APP UI ─────────────────────── */
 :root{
   --bg:#0c0c0c;--card:#141414;--border:#2c2c2c;
   --acc:#f0d060;--dim:rgba(240,208,96,0.1);
@@ -16,35 +16,26 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;padding-bottom:100px;}
-
-/* header */
 .hdr{position:sticky;top:0;z-index:100;background:rgba(12,12,12,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;}
 .hdr-l{display:flex;align-items:center;gap:10px;}
 .badge{background:var(--acc);color:#000;font-family:'DM Mono',monospace;font-size:8px;font-weight:700;letter-spacing:2px;padding:4px 9px;border-radius:4px;}
 .hdr-t{font-size:15px;font-weight:600;}
 .hdr-v{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
-
-/* form */
 .wrap{padding:22px 20px;}
 .sec{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .sec::after{content:'';flex:1;height:1px;background:var(--border);}
 .field{margin-bottom:13px;}
 .field label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.field input,.field select{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;padding:13px 16px;border-radius:var(--r);outline:none;-webkit-appearance:none;transition:border-color .15s;}
-.field input:focus,.field select:focus{border-color:var(--acc);}
+.field input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;padding:13px 16px;border-radius:var(--r);outline:none;-webkit-appearance:none;transition:border-color .15s;}
+.field input:focus{border-color:var(--acc);}
 .field input::placeholder{color:var(--muted);font-size:13px;}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-
-/* upload */
-.upbox{border:1.5px dashed var(--border);border-radius:var(--r);padding:22px 20px;text-align:center;background:var(--card);cursor:pointer;position:relative;display:block;touch-action:manipulation;margin-bottom:4px;}
+.upbox{border:1.5px dashed var(--border);border-radius:var(--r);padding:20px;text-align:center;background:var(--card);cursor:pointer;position:relative;display:block;touch-action:manipulation;margin-bottom:4px;}
 .upbox:active{border-color:var(--acc);}
-.up-ico{font-size:26px;margin-bottom:5px;}
+.up-ico{font-size:24px;margin-bottom:4px;}
 .up-txt{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
-.up-prev{max-height:70px;max-width:160px;object-fit:contain;filter:grayscale(1);display:none;margin:0 auto;}
-
-/* toggle */
-.tog{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px 16px;margin-bottom:9px;cursor:pointer;user-select:none;touch-action:manipulation;min-height:52px;transition:border-color .15s;}
+.up-prev{max-height:60px;max-width:140px;object-fit:contain;filter:grayscale(1);display:none;margin:0 auto;}
+.tog{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:8px;cursor:pointer;user-select:none;touch-action:manipulation;min-height:50px;transition:border-color .15s;}
 .tog.on{border-color:var(--acc);background:var(--dim);}
 .tog-l{font-size:14px;font-weight:500;}
 .tog.on .tog-l{color:var(--acc);}
@@ -52,28 +43,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
 .tog.on .sw{background:var(--acc);}
 .sw::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:transform .2s;}
 .tog.on .sw::after{transform:translateX(18px);}
-
-/* qty */
 .qty{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
 .q-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:var(--r);padding:12px;text-align:center;font-family:'DM Mono',monospace;font-size:13px;cursor:pointer;touch-action:manipulation;transition:all .15s;user-select:none;}
 .q-btn.on{border-color:var(--acc);background:var(--dim);color:var(--acc);}
-
-/* bottom */
 .btm{position:fixed;bottom:0;left:0;right:0;z-index:90;padding:12px 20px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(12,12,12,.97);backdrop-filter:blur(16px);border-top:1px solid var(--border);}
 .btn{width:100%;background:var(--acc);color:#000;border:none;border-radius:var(--r);font-family:'DM Mono',monospace;font-weight:700;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;padding:18px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;min-height:56px;user-select:none;}
 .btn:active{opacity:.8;}
 .btn:disabled{opacity:.35;}
-
-/* toast */
 .toast{position:fixed;bottom:86px;left:20px;right:20px;z-index:80;padding:12px 18px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;text-align:center;opacity:0;pointer-events:none;transition:opacity .3s;}
 .toast.show{opacity:1;}
 .toast.ok{background:#0d2e1a;border:1px solid var(--green);color:var(--green);}
 .toast.err{background:#2e0d0d;border:1px solid var(--red);color:var(--red);}
 .toast.ld{background:#1a1a08;border:1px solid var(--acc);color:var(--acc);}
 
-/* ── PRINT ──────────────────────────────── */
+/* ── PRINT ── */
 #prt{display:none;}
-
 @media print{
   body>*:not(#prt){display:none!important;}
   #prt{display:block!important;}
@@ -83,7 +67,11 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
   .doc:last-child{page-break-after:avoid;}
 }
 
-/* ── DOCUMENTO ─────────────────────────── */
+/* ══════════════════════════════════
+   DOCUMENTO — padrão gráfica
+   Linha base: 1px uniforme em tudo
+   Borda externa: 3px
+   ══════════════════════════════════ */
 .doc{
   width:100mm;
   height:150mm;
@@ -91,16 +79,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
   font-size:7pt;
   color:#000;
   background:#fff;
-  /* Borda externa 3mm conforme spec */
   border:3px solid #000;
-  padding:2.5mm 2.5mm 2mm 2.5mm;
+  padding:2mm;
   display:flex;
   flex-direction:column;
+  gap:1.5mm;
   position:relative;
   overflow:hidden;
 }
 
-/* Marca d'água */
+/* Marca d'água — centro absoluto */
 .wm{
   position:absolute;
   top:50%;left:50%;
@@ -113,152 +101,209 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
 }
 .doc>*:not(.wm){position:relative;z-index:1;}
 
-/* CABEÇALHO — grid 2/3 | 1/3 */
+/* ── HEADER — caixa com borda arredondada ── */
 .cab{
+  border:1px solid #000;
+  border-radius:3px;
   display:grid;
-  grid-template-columns:2fr 1fr;
-  border-bottom:1px solid #000;
-  padding-bottom:2mm;
-  margin-bottom:1.5mm;
+  /* Logo à esquerda (1/3) | Info ao centro (2/3) */
+  grid-template-columns:1fr 2fr;
+  min-height:22mm;
+  overflow:hidden;
 }
+
+/* Logo — lado ESQUERDO */
+.cab-logo{
+  border-right:1px solid #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2mm;
+}
+.cab-logo img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  filter:grayscale(1);
+}
+.logo-ph{
+  width:100%;height:100%;
+  border:1px dashed #ccc;
+  display:flex;align-items:center;justify-content:center;
+  font-size:5pt;color:#ccc;letter-spacing:1px;
+}
+
+/* Info — lado DIREITO dos 2/3 */
 .cab-info{
   display:flex;flex-direction:column;
   justify-content:center;align-items:center;
-  text-align:center;gap:1mm;
-  padding-right:2mm;
+  text-align:center;
+  padding:2mm 2mm 2mm 2mm;
+  gap:1mm;
 }
+
+/* Nome empresa — BLACK máximo */
 .emp-nome{
   font-family:'Poppins',Arial,sans-serif;
-  font-size:13pt;font-weight:900;
+  font-size:12pt;
+  font-weight:900;
   text-transform:uppercase;
-  letter-spacing:0.2px;
-  line-height:1.05;
+  letter-spacing:0.3px;
+  line-height:1.0;
 }
+
+/* Serviços — compacto */
 .emp-svc{
-  font-size:5.5pt;font-weight:700;
+  font-size:5.5pt;
+  font-weight:700;
   text-transform:uppercase;
-  line-height:1.25;
+  line-height:1.2;
+  max-width:60mm;
 }
+
+/* Contatos — fone esquerda, CNPJ direita */
 .emp-cont{
-  display:flex;justify-content:space-between;
-  align-items:center;width:100%;
-  font-size:6pt;font-weight:700;
-  gap:2mm;margin-top:.5mm;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  font-size:6pt;
+  font-weight:700;
+  gap:2mm;
 }
 .fone-w{display:flex;align-items:center;gap:1.5mm;}
 .fone-ic{
-  width:8px;height:8px;background:#000;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:8px;height:8px;
+  background:#000;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
 }
 .fone-ic svg{width:5px;height:5px;fill:#fff;}
-.emp-end{font-size:5pt;text-align:center;line-height:1.2;}
+.emp-end{font-size:5pt;line-height:1.2;text-align:center;}
 
-/* Logo bloco */
-.cab-logo{
-  border-left:1px solid #000;
-  display:flex;align-items:center;justify-content:center;
-  padding:2mm;
-}
-.cab-logo img{max-width:100%;max-height:100%;object-fit:contain;filter:grayscale(1);}
-.logo-ph{width:100%;height:100%;border:1px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:5.5pt;color:#ccc;letter-spacing:1px;}
-
-/* BLOCO RECIBO */
+/* ── BLOCO RECIBO ── */
 .b2{
   border:1px solid #000;
+  border-radius:2px;
   padding:1.5mm 2mm;
-  margin-bottom:1.5mm;
 }
+/* RECIBO / ORÇAMENTO — à DIREITA, sem "VÁLIDO" */
 .b2-tit{
-  font-weight:700;font-size:7pt;
+  font-weight:700;
+  font-size:7pt;
   text-transform:uppercase;
-  text-align:right;  /* alinhado à direita */
+  text-align:right;
   margin-bottom:1.5mm;
-  letter-spacing:.3px;
+  letter-spacing:0.3px;
 }
 .linha{
-  display:flex;gap:2mm;font-size:6pt;
-  margin-bottom:1mm;align-items:flex-end;
+  display:flex;gap:2mm;
+  font-size:6pt;
+  margin-bottom:1mm;
+  align-items:flex-end;
 }
 .lbl{font-weight:700;white-space:nowrap;}
-/* Linhas padronizadas — espessura consistente 1px */
+/* Linha preenchimento — 1px uniforme */
 .ul{flex:1;border-bottom:1px solid #000;min-height:7px;}
 
-/* TABELA — 15 linhas com espessura uniforme */
-.tbl-wrap{flex:1;margin-bottom:1.5mm;}
+/* ── TABELA — 15 linhas, espessura 1px uniforme ── */
+.tbl-wrap{flex:1;}
 .tbl{
   width:100%;
   border-collapse:collapse;
   table-layout:fixed;
 }
-/* Espessura uniforme 1px em TODAS as bordas */
-.tbl th,.tbl td{
+/* 1px UNIFORME em TUDO */
+.tbl th,
+.tbl td{
   border:1px solid #000;
   padding:0;
-  font-size:6pt;
 }
 .tbl th{
-  font-size:6.5pt;font-weight:700;
+  font-size:6.5pt;
+  font-weight:700;
   text-align:center;
   padding:1.5mm 0;
   background:#fff;
 }
-.tbl td{height:5.5mm;}
+.tbl td{height:6mm;}
 .col-q{width:9mm;}
 .col-u{width:17mm;}
 .col-t{width:17mm;}
 
-/* TOTAL */
+/* ── TOTAL ── */
 .total{
   display:flex;
   border:1px solid #000;
-  font-weight:700;font-size:7.5pt;
-  margin-bottom:1.5mm;
+  font-weight:700;
+  font-size:7.5pt;
 }
-.total-lbl{flex:1;padding:1.5mm 2mm;text-align:right;}
-.total-val{border-left:1px solid #000;padding:1.5mm 2mm;min-width:22mm;}
+.total-lbl{
+  flex:1;
+  padding:1.5mm 2mm;
+  text-align:right;
+}
+.total-val{
+  border-left:1px solid #000;
+  padding:1.5mm 2mm;
+  min-width:22mm;
+}
 
-/* RODAPÉ */
+/* ── RODAPÉ ── */
 .roda{
-  display:flex;justify-content:space-between;align-items:flex-end;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding-top:1mm;
 }
-.ass{display:flex;flex-direction:column;align-items:center;gap:1mm;}
-.ass-txt{font-size:5.5pt;letter-spacing:.3px;}
-.agr{font-size:5.5pt;font-weight:700;text-align:right;line-height:1.35;}
-.via-n{text-align:center;font-size:4.5pt;color:#666;margin-top:.5mm;}
+/* ASSINATURA — à esquerda, sem linha */
+.ass-txt{
+  font-size:5.5pt;
+  font-weight:700;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+}
+/* AGRADECEMOS — à direita, compacto */
+.agr{
+  font-size:5.5pt;
+  font-weight:700;
+  text-align:right;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+.via-n{
+  text-align:center;
+  font-size:4.5pt;
+  color:#555;
+  margin-top:0.5mm;
+}
 </style>
 </head>
 <body>
 
-<!-- ═══ APP ═══ -->
 <div class="hdr">
   <div class="hdr-l">
     <div class="badge">PRO</div>
     <div class="hdr-t">Gerador de Recibo</div>
   </div>
-  <div class="hdr-v">v6.0</div>
+  <div class="hdr-v">v7.0</div>
 </div>
 
 <div class="wrap">
 
   <div class="sec">Dados da empresa</div>
-
-  <div class="field">
-    <label>Nome da empresa *</label>
-    <input type="text" id="emp-nome" placeholder="Ex: Braullio Designer">
-  </div>
-  <div class="field">
-    <label>Serviços prestados</label>
-    <input type="text" id="emp-svc" placeholder="Ex: Talão de notas, cartão de visita, placas...">
-  </div>
+  <div class="field"><label>Nome da empresa *</label>
+    <input type="text" id="emp-nome" placeholder="Ex: Braullio Designer"></div>
+  <div class="field"><label>Serviços prestados</label>
+    <input type="text" id="emp-svc" placeholder="Ex: Talão de notas, cartão de visita, placas..."></div>
   <div class="g2">
-    <div class="field"><label>WhatsApp</label><input type="tel" id="emp-fone" placeholder="(82) 99999-0000"></div>
-    <div class="field"><label>CNPJ / CPF</label><input type="text" id="emp-cnpj" placeholder="00.000.000/0001-00"></div>
+    <div class="field"><label>WhatsApp</label>
+      <input type="tel" id="emp-fone" placeholder="(82) 99999-0000"></div>
+    <div class="field"><label>CNPJ / CPF</label>
+      <input type="text" id="emp-cnpj" placeholder="00.000.000/0001-00"></div>
   </div>
-  <div class="field">
-    <label>Endereço</label>
-    <input type="text" id="emp-end" placeholder="Rua, Nº, Bairro, Cidade, Estado">
-  </div>
+  <div class="field"><label>Endereço</label>
+    <input type="text" id="emp-end" placeholder="Rua, Nº, Bairro, Cidade, Estado"></div>
 
   <div class="sec" style="margin-top:8px">Logo da empresa</div>
   <label class="upbox" for="f-logo">
@@ -271,7 +316,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
   <div class="tog" id="tog-logo-off" onclick="setOpt('logo','off')"><span class="tog-l">Sem logo</span><div class="sw"></div></div>
   <div class="tog on" id="tog-logo-on" onclick="setOpt('logo','on')"><span class="tog-l">Com logo</span><div class="sw"></div></div>
 
-  <div class="sec" style="margin-top:18px">Marca d'água</div>
+  <div class="sec" style="margin-top:16px">Marca d'água</div>
   <label class="upbox" for="f-wm">
     <input type="file" id="f-wm" accept="image/*" onchange="loadImg(event,'wm')"
       style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
@@ -282,7 +327,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
   <div class="tog" id="tog-wm-off" onclick="setOpt('wm','off')"><span class="tog-l">Sem marca d'água</span><div class="sw"></div></div>
   <div class="tog on" id="tog-wm-on" onclick="setOpt('wm','on')"><span class="tog-l">Com marca d'água</span><div class="sw"></div></div>
 
-  <div class="sec" style="margin-top:18px">Vias</div>
+  <div class="sec" style="margin-top:16px">Vias</div>
   <div class="qty">
     <div class="q-btn on" onclick="setVias(1,this)">1 via</div>
     <div class="q-btn" onclick="setVias(2,this)">2 vias</div>
@@ -302,150 +347,153 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
 <div id="prt"></div>
 
 <script>
-const state = {
-  logo: { gray:null, on:true },
-  wm:   { gray:null, on:true },
-  vias: 1,
-  opts: { vei:true, end:true }
+const S = {
+  logo:{gray:null,on:true},
+  wm:{gray:null,on:true},
+  vias:1,
+  opts:{vei:true,end:true}
 };
 
-const get = id => document.getElementById(id)?.value?.trim() || '';
+const get = id => document.getElementById(id)?.value?.trim()||'';
 
-function toast(msg, type){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show ' + type;
-  if(type !== 'ld') setTimeout(() => el.classList.remove('show'), 3500);
+function toast(msg,type){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+type;
+  if(type!=='ld') setTimeout(()=>el.classList.remove('show'),3500);
 }
 
-function toGray(src, cb){
-  const img = new Image();
-  img.onload = () => {
-    const cv = document.createElement('canvas');
-    cv.width = img.width; cv.height = img.height;
-    const ctx = cv.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-    const d = ctx.getImageData(0, 0, cv.width, cv.height);
-    for(let i = 0; i < d.data.length; i += 4){
-      const g = 0.299*d.data[i] + 0.587*d.data[i+1] + 0.114*d.data[i+2];
-      d.data[i] = d.data[i+1] = d.data[i+2] = g;
+function toGray(src,cb){
+  const img=new Image();
+  img.onload=()=>{
+    const cv=document.createElement('canvas');
+    cv.width=img.width;cv.height=img.height;
+    const ctx=cv.getContext('2d');
+    ctx.drawImage(img,0,0);
+    const d=ctx.getImageData(0,0,cv.width,cv.height);
+    for(let i=0;i<d.data.length;i+=4){
+      const g=0.299*d.data[i]+0.587*d.data[i+1]+0.114*d.data[i+2];
+      d.data[i]=d.data[i+1]=d.data[i+2]=g;
     }
-    ctx.putImageData(d, 0, 0);
-    cb(cv.toDataURL('image/jpeg', 0.92));
+    ctx.putImageData(d,0,0);
+    cb(cv.toDataURL('image/jpeg',0.92));
   };
-  img.src = src;
+  img.src=src;
 }
 
-function loadImg(e, key){
-  const file = e.target.files[0]; if(!file) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    toGray(ev.target.result, gray => {
-      state[key].gray = gray;
-      document.getElementById('prev-'+key).src = gray;
-      document.getElementById('prev-'+key).style.display = 'block';
-      document.getElementById('ico-'+key).style.display = 'none';
-      document.getElementById('txt-'+key).style.display = 'none';
-      setOpt(key, 'on');
+function loadImg(e,key){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    toGray(ev.target.result,gray=>{
+      S[key].gray=gray;
+      document.getElementById('prev-'+key).src=gray;
+      document.getElementById('prev-'+key).style.display='block';
+      document.getElementById('ico-'+key).style.display='none';
+      document.getElementById('txt-'+key).style.display='none';
+      setOpt(key,'on');
     });
   };
   r.readAsDataURL(file);
 }
 
-function setOpt(key, val){
-  state[key].on = val === 'on';
-  document.getElementById('tog-'+key+'-off').classList.toggle('on', val === 'off');
-  document.getElementById('tog-'+key+'-on').classList.toggle('on', val === 'on');
+function setOpt(key,val){
+  S[key].on=val==='on';
+  document.getElementById('tog-'+key+'-off').classList.toggle('on',val==='off');
+  document.getElementById('tog-'+key+'-on').classList.toggle('on',val==='on');
 }
 
-function setVias(n, el){
-  state.vias = n;
-  document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('on'));
+function setVias(n,el){
+  S.vias=n;
+  document.querySelectorAll('.q-btn').forEach(b=>b.classList.remove('on'));
   el.classList.add('on');
 }
 
 function togOpt(key){
-  state.opts[key] = !state.opts[key];
-  document.getElementById('tog-'+key).classList.toggle('on', state.opts[key]);
+  S.opts[key]=!S.opts[key];
+  document.getElementById('tog-'+key).classList.toggle('on',S.opts[key]);
 }
 
-// Touch support
-['tog-logo-off','tog-logo-on','tog-wm-off','tog-wm-on','tog-vei','tog-end'].forEach(id => {
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('touchend', e => { e.preventDefault(); el.click(); }, {passive:false});
+// Touch
+['tog-logo-off','tog-logo-on','tog-wm-off','tog-wm-on','tog-vei','tog-end'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('touchend',e=>{e.preventDefault();el.click();},{passive:false});
 });
-document.getElementById('btn-gerar').addEventListener('touchend', e => { e.preventDefault(); gerar(); }, {passive:false});
-document.querySelectorAll('.q-btn').forEach((btn, i) => {
-  btn.addEventListener('touchend', e => { e.preventDefault(); setVias(i+1, btn); }, {passive:false});
+document.getElementById('btn-gerar').addEventListener('touchend',e=>{e.preventDefault();gerar();},{passive:false});
+document.querySelectorAll('.q-btn').forEach((btn,i)=>{
+  btn.addEventListener('touchend',e=>{e.preventDefault();setVias(i+1,btn);},{passive:false});
 });
 
 function buildDoc(via){
-  const nome = get('emp-nome');
-  const svc  = get('emp-svc');
-  const fone = get('emp-fone');
-  const cnpj = get('emp-cnpj');
-  const end  = get('emp-end');
+  const nome=get('emp-nome');
+  const svc=get('emp-svc');
+  const fone=get('emp-fone');
+  const cnpj=get('emp-cnpj');
+  const end=get('emp-end');
 
-  // Cabeçalho logo
-  const logoHTML = (state.logo.on && state.logo.gray)
-    ? `<img src="${state.logo.gray}" alt="">`
-    : `<div class="logo-ph">LOGO</div>`;
+  // Logo à esquerda
+  const logoHTML=(S.logo.on&&S.logo.gray)
+    ?`<img src="${S.logo.gray}" alt="">`
+    :`<div class="logo-ph">LOGO</div>`;
 
   // Marca d'água
-  const wmHTML = (state.wm.on && state.wm.gray)
-    ? `<img class="wm" src="${state.wm.gray}" alt="">` : '';
+  const wmHTML=(S.wm.on&&S.wm.gray)
+    ?`<img class="wm" src="${S.wm.gray}" alt="">`:'' ;
 
-  // Bloco 2 — campos do cliente
-  let b2 = `
+  // Bloco cliente
+  let b2=`
     <div class="linha">
       <span class="lbl">Data:</span><span class="ul"></span>
       <span class="lbl" style="margin-left:3mm">Fone:</span><span class="ul"></span>
     </div>
     <div class="linha"><span class="lbl">Cliente:</span><span class="ul"></span></div>`;
-  if(state.opts.end)
-    b2 += `<div class="linha"><span class="lbl">Endereço:</span><span class="ul"></span></div>`;
-  if(state.opts.vei)
-    b2 += `<div class="linha">
+  if(S.opts.end)
+    b2+=`<div class="linha"><span class="lbl">Endereço:</span><span class="ul"></span></div>`;
+  if(S.opts.vei)
+    b2+=`<div class="linha">
       <span class="lbl">Veículo:</span><span class="ul"></span>
       <span class="lbl" style="margin-left:3mm">Placa:</span>
       <span class="ul" style="max-width:20mm"></span>
     </div>`;
 
-  // Tabela — 15 linhas fixas
-  let rows = '';
-  for(let i = 0; i < 15; i++)
-    rows += `<tr><td class="col-q"></td><td></td><td class="col-u"></td><td class="col-t"></td></tr>`;
+  // 15 linhas fixas
+  let rows='';
+  for(let i=0;i<15;i++)
+    rows+=`<tr><td class="col-q"></td><td></td><td class="col-u"></td><td class="col-t"></td></tr>`;
 
-  // Via label
-  const viaHTML = state.vias > 1
-    ? `<div class="via-n">Via ${via} de ${state.vias}</div>` : '';
+  const viaHTML=S.vias>1?`<div class="via-n">Via ${via} de ${S.vias}</div>`:'';
 
   return `
   <div class="doc">
     ${wmHTML}
+
+    <!-- HEADER — logo esquerda, info direita -->
     <div class="cab">
+      <div class="cab-logo">${logoHTML}</div>
       <div class="cab-info">
-        <div class="emp-nome">${nome || 'EMPRESA'}</div>
-        ${svc ? `<div class="emp-svc">${svc}</div>` : ''}
+        <div class="emp-nome">${nome||'EMPRESA'}</div>
+        ${svc?`<div class="emp-svc">${svc}</div>`:''}
         <div class="emp-cont">
           <div class="fone-w">
             <div class="fone-ic">
-              <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              <svg viewBox="0 0 24 24">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+              </svg>
             </div>
             <span>${fone}</span>
           </div>
-          ${cnpj ? `<span>CNPJ/CPF: ${cnpj}</span>` : ''}
+          ${cnpj?`<span>CNPJ/CPF: ${cnpj}</span>`:''}
         </div>
-        ${end ? `<div class="emp-end">${end}</div>` : ''}
+        ${end?`<div class="emp-end">${end}</div>`:''}
       </div>
-      <div class="cab-logo">${logoHTML}</div>
     </div>
 
+    <!-- BLOCO RECIBO / ORÇAMENTO -->
     <div class="b2">
       <div class="b2-tit">RECIBO / ORÇAMENTO</div>
       ${b2}
     </div>
 
+    <!-- TABELA 15 LINHAS -->
     <div class="tbl-wrap">
       <table class="tbl">
         <thead>
@@ -460,37 +508,37 @@ function buildDoc(via){
       </table>
     </div>
 
+    <!-- TOTAL -->
     <div class="total">
       <span class="total-lbl">TOTAL R$</span>
       <span class="total-val"></span>
     </div>
 
+    <!-- RODAPÉ -->
     <div class="roda">
-      <div class="ass">
-        <span class="ass-txt">ASSINATURA</span>
-      </div>
-      <div class="agr">AGRADECEMOS A SUA PREFERÊNCIA</div>
+      <span class="ass-txt">ASSINATURA</span>
+      <span class="agr">AGRADECEMOS A SUA PREFERÊNCIA</span>
     </div>
+
     ${viaHTML}
   </div>`;
 }
 
 async function gerar(){
-  const nome = get('emp-nome');
-  if(!nome){ toast('Preencha o nome da empresa', 'err'); return; }
+  const nome=get('emp-nome');
+  if(!nome){toast('Preencha o nome da empresa','err');return;}
+  const btn=document.getElementById('btn-gerar');
+  btn.disabled=true;
+  toast('Preparando...','ld');
 
-  const btn = document.getElementById('btn-gerar');
-  btn.disabled = true;
-  toast('Preparando...', 'ld');
+  let html='';
+  for(let i=1;i<=S.vias;i++) html+=buildDoc(i);
+  document.getElementById('prt').innerHTML=html;
 
-  let html = '';
-  for(let i = 1; i <= state.vias; i++) html += buildDoc(i);
-  document.getElementById('prt').innerHTML = html;
-
-  await new Promise(r => setTimeout(r, 500));
-  toast('Na janela de impressão → "Salvar como PDF"', 'ok');
+  await new Promise(r=>setTimeout(r,500));
+  toast('Janela de impressão → "Salvar como PDF"','ok');
   window.print();
-  btn.disabled = false;
+  btn.disabled=false;
 }
 </script>
 </body>
