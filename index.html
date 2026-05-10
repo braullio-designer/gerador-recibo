@@ -220,7 +220,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
   padding:0;
 }
 .tbl th{
-  font-size:6.5pt;
+  font-size:5.5pt;
   font-weight:700;
   text-align:center;
   padding:1.5mm 0;
@@ -228,8 +228,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
 }
 .tbl td{height:6mm;}
 .col-q{width:9mm;}
-.col-u{width:17mm;}
-.col-t{width:17mm;}
+.col-u{width:15mm;}
+.col-t{width:15mm;}
 
 /* ── TOTAL ── */
 .total{
@@ -253,10 +253,21 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;pad
 .roda{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  padding-top:1mm;
+  align-items:flex-end;
+  padding-top:1.5mm;
+  margin-top:1mm;
 }
-/* ASSINATURA — à esquerda, sem linha */
+/* ASSINATURA — à esquerda, com linha acima */
+.ass-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:1mm;
+}
+.ass-linha{
+  width:28mm;
+  border-top:1px solid #000;
+}
 .ass-txt{
   font-size:5.5pt;
   font-weight:700;
@@ -516,8 +527,11 @@ function buildDoc(via){
 
     <!-- RODAPÉ -->
     <div class="roda">
-      <span class="ass-txt">ASSINATURA</span>
-      <span class="agr">AGRADECEMOS A SUA PREFERÊNCIA</span>
+      <div class="ass-wrap">
+        <div class="ass-linha"></div>
+        <span class="ass-txt">ASSINATURA</span>
+      </div>
+      <span class="agr">AGRADECEMOS<br>A SUA PREFERÊNCIA</span>
     </div>
 
     ${viaHTML}
